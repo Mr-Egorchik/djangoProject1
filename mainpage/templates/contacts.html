@@ -1,0 +1,64 @@
+{% extends 'main_template.html' %}
+{% block content %}
+
+<div class="container contacts">
+    <div class="contacts__content">
+        <h2 class="h2-text mb-3">
+            Контакты
+        </h2>
+        <div class="body1-text mb-4">
+            Все вопросы можно задать нашим координаторам
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 col-sm-6 flex-column mb-3 mb-sm-0">
+                <div class="h3-text mb-4">
+                    Менеджеры
+                </div>
+                {% for manager in managers %}
+                    <div class="reviews__person mb-4">
+                        <div class="reviews__person-avatar">
+                            <img src="{{ manager.photo_url }}" alt="{{ manager.name }}" />
+                        </div>
+                        <div class="d-flex flex-column">
+                            <div class="reviews__person-name">
+                                {{ manager.name }}
+                            </div>
+                            <a href="mailto:{{ manager.email }}" class="reviews__person-country">
+                                {{ manager.email }}
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-12 col-sm-6 flex-column mt-3 mt-sm-0">
+                <div class="h3-text mb-4">Директор</div>
+                {% for director in directors %}
+                    <div class="reviews__person mb-4">
+                        <div class="reviews__person-avatar">
+                            <img src="{{ director.photo_url }}" alt="{{ director.name }}" />
+                        </div>
+                        <div class="d-flex flex-column">
+                            <div class="reviews__person-name">
+                                {{ director.name }}
+                            </div>
+                            <a href="mailto:{{ director.email }}" class="reviews__person-country">
+                                {{ director.email }}
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="contacts__map">
+        <div class="gmap_canvas w-100 h-100">
+            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Adb1eff438fbb2bae19b57808e83151a2dc78c1178c97b7fd03ba1a54f91cb373&amp;source=constructor"
+                    width="480"
+                    height="460"
+                    frameborder="0">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

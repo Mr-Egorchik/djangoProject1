@@ -1,0 +1,58 @@
+{% extends 'main_template.html' %}
+{% block content %}
+
+    <div class="container reviews">
+        <h3 class="h2-text text-center mb-3">Отзывы</h3>
+        {% for comment in comments %}
+        <div class="reviews__content">
+            <div class="reviews__card">
+                <div class="reviews__person mb-4">
+                    <div class="d-flex flex-column">
+                        <div class="reviews__person-name">
+                            {{ comment.author }}
+                        </div>
+                        <div class="reviews__person-country">
+                            {{ comment.date }}
+                        </div>
+                    </div>
+                </div>
+                <div class="h5 font-weight-bold mb-3">
+                    {{ comment.course }}
+                </div>
+                <div class="mb-3">
+                    {{ comment.text }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div>
+            <nav>
+                <ul class="pagination">
+                    {% if page > 1 %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page|add:-1 }}" rel="prev" aria-label="&laquo; Previous">&lsaquo;</a>
+                    </li>
+                    {% endif %}
+                    {% for p in page_range %}
+                        {% if p == page %}
+                            <li class="page-item active" aria-current="page">
+                                <span class="page-link">{{ p }}</span>
+                            </li>
+                        {% elif p >= page|add:-2 and p <= page|add:2  %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ p }}" style="background-color: #ff0000; color: white">{{ p }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page < max_page %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page|add:1 }}" rel="next" aria-label="Next &raquo;">&rsaquo;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+{% endblock %}

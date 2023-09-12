@@ -1,0 +1,210 @@
+{% extends 'main_template.html' %}
+{% block content %}
+
+        <div class="school container">
+            <div class="school__conditions">
+                <div class="school__conditions-wrapper">
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="school-selection-tab-3">
+                            <div class="d-flex flex-column mb-4">
+                                <div class="school__conditions-title">
+                                    Длительность
+                                </div>
+                                <div class="body1-text">
+                                    {{ course.duration }}
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column mb-4">
+                                <div class="school__conditions-title">
+                                    Количество часов
+                                </div>
+                                <div class="body1-text">
+                                    {{ course.hours }}
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column mb-4">
+                                <div class="school__conditions-title">
+                                    Стоимость
+                                </div>
+                                <div class="body1-text">
+                                    {% if c.price %}
+                                        {{ c.price }} ₽
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="school__summary">
+                <div class="d-flex flex-column flex-xl-row w-100 mb-2 align-items-center mb-2">
+                    <div class="h2-text school__name mr-xl-2">
+                        {{ course.name }}
+                    </div>
+                </div>
+                <div id="school-description" class="body1-text">
+                    <br>
+                    {{  course.description }}
+                </div>
+            </div>
+            <div class="school__button">
+                <div class="mb-4 d-flex flex-column flex-md-row align-item-center">
+                    <form data-toggle="apply">
+                        <input type="hidden" name="school-id" value="{{ course.id }}">
+                        <button type="submit" class="btn btn-danger rounded order-2 order-md-1">
+                            Подать заявку
+                        </button>
+                    </form>
+                    {% if course.description_file %}
+                        <a class="btn btn-link rounded order-1 order-md-2" target="_blank" href="{{ course.description_url }}"> О программе </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="school__date">
+                Дата ближайшего старта программы: {{ course.start|date:'d.m.Y' }}
+            </div>
+            <div class="school__useful">
+                <div class="h3-text mb-4" style="text-align: center">
+                    Кому будет полезна данная программа?
+                </div>
+                <img src="{{ course.diagram_url }}" width="50%" style="display: block; margin-left: auto; margin-right: auto">
+                <div class="reviews mainpage__block">
+                    <div id="reviews-swiper" class="swiper-container reviews__swiper container-sw swiper-container-initialized swiper-container-horizontal">
+                        <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); display: flex; justify-content: center; flex-wrap: wrap;">
+                            {% for int in intentions %}
+                                <div class="swiper-slide reviews__slide swiper-slide-active" style="width: 360px; margin-right: 30px;">
+                                    <div class="reviews__slide-card" data-type="review">
+                                        <div class="reviews__slide-card-description">
+                                            {{ int.text }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="school__course">
+                <div class="h3-text mb-4" style="text-align: center">
+                    Программа курса
+                </div>
+                <div class="school__course-wrapper">
+                    <ul class="nav nav-pills mb-3 school__course-tab" role="tablist">
+                        {% for module in modules %}
+                            <li class="school__course-item">
+                                <div class="school__course-item-title">
+                                    <a
+                                            class="school__course-name"
+                                            id="school-course-tab-{{ forloop.counter }}"
+                                            data-toggle="pill"
+                                            href="#school-course-{{ forloop.counter }}"
+                                            role="tab"
+                                            aria-controls="school-course-{{ forloop.counter }}"
+                                            aria-selected="true"
+                                    >
+                                        {{ module.name }}
+                                    </a>
+                                </div>
+                                <div id='module-text-{{ forloop.counter }}' style="display: none; padding-left: 10%; padding-right: 10%;" class="body1-text school__course-desc">
+                                    {{ module.description }}
+                                </div>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+            <div class="school__skills">
+                <div class="body1-text">
+                    <br>
+                    {{  course.skills }}
+                </div>
+            </div>
+            <div class="school__teachers">
+                <div class="horizontal-slidermix">
+                    <div class="owl-carousel" id="owl-carousel-1" style="">
+                        {% for teacher in teachers %}
+                            <div class="carousel-item" style="margin-top: 2rem; margin-bottom: 2rem;">
+                                <a href="{{ teacher.ssau_ref }}" class="slide-cont text">
+                                    <span>
+                                        <img src="{{ teacher.photo_url }}" alt="{{ teacher.surname }} {{ teacher.name }}" height="100px">
+                                    </span>
+                                    <span>
+                                        {{ teacher.surname }} {{ teacher.name }}, {{ teacher.degree }}
+                                    </span>
+                                    <span>
+                                        {{ teacher.info }}
+                                    </span>
+                                    <span>
+                                        {{ teacher.phrase }}
+                                    </span>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="school__text">
+                <div class="h2-text school__name mr-xl-2">
+                    Диплом государственного образца
+                </div>
+                <br>
+                <p>Текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+                Текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+                Текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+                Текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+                Текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+                </p>
+            </div>
+            <div class="school__diplom" style="margin-top: 20%;">
+                <img src="{{ course.photo_dip_url }}">
+            </div>
+            <div class="school_comments">
+
+            </div>
+        </div>
+        <div class="mainpage">
+            <div class="container reviews__container">
+                <div class="h2-text mainpage__block-title">Отзывы о курсе</div>
+            </div>
+            <div class="reviews mainpage__block">
+                <div id="reviews-swiper" class="swiper-container reviews__swiper container-sw swiper-container-initialized swiper-container-horizontal">
+                    <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+                        {% for c in course.comment_set.all %}
+                            {% if c.show %}
+                                <div class="swiper-slide reviews__slide swiper-slide-active" style="width: 360px; margin-right: 30px;">
+                                    <div class="reviews__slide-card" data-type="review">
+                                        <div class="reviews__slide-card-username">
+                                            {{ c.author }}
+                                        </div>
+                                        <div class="reviews__slide-card-country">
+                                            {{ c.date }}
+                                        </div>
+                                        <div class="reviews__slide-card-title">
+                                            {{ c.course }}
+                                        </div>
+                                        <div class="reviews__slide-card-description">
+                                            {{ c.text }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="container feedback">
+        <div class="modal-body">
+            <form action="{% url 'apply' %}" method="post" style="width: 100%">
+                {% csrf_token %}
+                {{ form }}
+                <button id="send-form" class="btn btn-outline-line rounded" style="margin-top: 10px; color: white; border-color: white" type="submit">Подать заявку</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

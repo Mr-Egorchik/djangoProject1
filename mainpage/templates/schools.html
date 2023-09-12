@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" id="csrf-token" content="E2mNNI6fj1Zfeh2MzVXkVqHmu56Ydb86AoOrbWmf">
+    <title>International Schools of Samara University</title>
+    <link rel="stylesheet" href="/static/app.css">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.7.95/css/materialdesignicons.min.css">
+    <!-- Yandex.Metrika counter -->
+    <script async="" src="https://mc.yandex.ru/metrika/tag.js"></script><script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () {
+                (m[i].a = m[i].a || []).push(arguments)
+            };
+            m[i].l = 1 * new Date();
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        ym(52449805, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true
+        });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/52449805" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+    <style type="text/css"></style>
+</head>
+<body>
+    <div>
+        <header class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="navbar-brand flex-column flex-md-row mx-auto ml-md-0 logo" href="/">
+                    <a href="https://ssau.ru/" class="logo__ssau mb-3 mb-md-0 mr-0 mr-md-3">
+
+                    </a>
+                    <a href="/" class="logo__school">
+
+                    </a>
+                </div>
+                <ul class="navbar-nav mx-auto d-flex flex-wrap flex-md-nowrap justify-content-center flex-row">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            Главная
+                            <span class="sr-only">
+                                (current)
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'schools'%}">
+                            Курсы
+                            <span class="sr-only">
+                                (current)
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{% url 'contacts'%}">
+                            Контакты
+                            <span class="sr-only">
+                                (current)
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="navbar__call order-3 d-none d-lg-flex">
+                    <a href="/" type="button" class="btn btn-link">
+                        Login
+                    </a>
+                    <form data-toggle="apply">
+                        <input type="hidden" name="school-id" value="">
+                        <button type="submit" class="btn btn-outline-danger rounded">
+                            Подать заявку
+                        </button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+
+        <div class="container schools">
+            <div class="text-center schools__paragraph">
+                <div class="h2-text schools_title mb-3">
+                    {{ title }}
+                </div>
+                <div class="body1-text schools__description">
+                    {{ subtitle }}
+                </div>
+            </div>
+            <div class="schools__item">
+                <div class="schools__wrapper">
+                    {% for course in courses %}
+                    <a href="/schools/{{ course.id }}" class="schools__program">
+                        <div class="schools__program-card">
+                            <img src="{{ course.photo_url }}" alt="{{ course.name }}">
+                        </div>
+                        <div class="subtitle1-text text-center schools__name">
+                            {{ course.name }}
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <div class="footer__logo mb-4 mb-md-0">
+                    <a href="https://ssau.ru/" class="footer__logo-ssau">
+
+                    </a>
+                    <a href="/" class="footer__logo-school">
+
+                    </a>
+                </div>
+                <div class="footer__nav d-flex flex-wrap align-content-between mb-4 mb-md-0">
+                    <a href="/">
+                        Главная
+                        <span class="sr-only">
+                            (current)
+                        </span>
+                    </a>
+                    <a href="/">
+                        Курсы
+                        <span class="sr-only">
+                            (current)
+                        </span>
+                    </a>
+                    <a href="/">
+                        Контакты
+                        <span class="sr-only">
+                            (current)
+                        </span>
+                    </a>
+                </div>
+                <div class="footer__contacts text-center text-md-right position-relative" style="top: 15px">
+                    <a href="mailto:summer@ssau.ru" class="mt-4">summer@ssau.ru</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <script src="/static/js/app.js"></script>
+
+</body>
+</html>

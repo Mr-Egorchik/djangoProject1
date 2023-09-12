@@ -1,0 +1,76 @@
+{% extends 'main_template.html' %}
+{% block content %}
+
+<div class="mainpage">
+    <div class="programs mainpage__block">
+        <div class="container programs__container">
+            <div class="h1-text" style="color: black">
+                <p>Программы</p>
+            </div>
+            <ul class="nav nav-pills justify-content-center programs__schools" id="pills-tab" role="tablist">
+                <li class="nav-item programs__school">
+                    <a
+                            class="nav-link subtitle1-text programs__school-name active"
+                            data-toggle="pill"
+                            data-slide-index="0"
+                            data-slide-index-end="12"
+                            href="#"
+                            id="all"
+                    >
+                        Все
+                    </a>
+                </li>
+                {% for d in directions %}
+                    <li class="nav-item programs__school">
+                        <a
+                                class="nav-link subtitle1-text programs__school-name"
+                                data-toggle="pill"
+                                data-slide-index="0"
+                                data-slide-index-end="12"
+                                href="#"
+                                id="{{ d.id }}"
+                            >
+                                {{ d.name }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="tab-content w-100" id="pills-tabContent">
+                    <div class="swiper-slide">
+                        <div class="mainpage__slide" style="display: flex; flex-direction: row; width: 100%; flex-wrap: wrap;  align-items: center;  justify-content: center;">
+                            {% for c in courses %}
+                                <div class="card-course" data-content="{{ c.direction_id }}">
+                                    <div class="mainpage__slide-card programs__slide-card" style="width: 100%">
+                                        <div class="programs__slide-card-cover">
+                                            <img loading="lazy" src="{{ c.photo_url }}" alt="{{ c.name }}" />
+                                        </div>
+                                        <a href="{% url 'get_course' c.id %}" class="body1-text programs__slide-card-details">
+                                            <div class="mb-2">
+                                                <strong>Длительность:</strong>
+                                                {{ c.duration }}
+                                            </div>
+                                            <div class="mb-2">
+                                                <strong>Академических часов:</strong>
+                                                {{ c.hours }}
+                                            </div>
+                                            <div class="mb-2">
+                                                <strong>Стоимость:</strong>
+                                                {% if c.price %}
+                                                    {{ c.price }} ₽
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="subtitle1-text text-center">{{ c.name }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+
+{% endblock %}

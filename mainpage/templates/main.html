@@ -1,0 +1,191 @@
+{% extends 'main_template.html' %}
+{% block content %}
+
+<div class="mainpage">
+    <div class="container first-screen">
+                <div class="first-screen__descriptor">
+                    <div class="h1-text first-screen__title">
+                        <div class="first-screen__title-1">
+                            Приветствие
+                        </div>
+                    </div>
+                    <div class="first-screen__subtitle">
+                        <div>
+                            <p>Краткое описание компании, чем занимается и что предоставляет. Указать, что выдаются дипломы государственного образца.</p>
+                            <p>Текст, Текст, Текст, Текст, Текст</p>
+                            <p>Текст, Текст, Текст, Текст, Текст</p>
+                            <p>Текст, Текст, Текст, Текст, Текст</p>
+                            <p>Текст, Текст, Текст, Текст, Текст</p>
+                        </div>
+                    </div>
+                    <div class="first-screen__cta">
+                        <button type="submit" class="btn btn-outline-danger rounded">Подать заявку</button>
+                    </div>
+                </div>
+                <div class="first-screen__presentation">
+                    <div class="first-screen__presentation-preview">
+                        <img loading="lazy" src="static/img/presentation.png" alt="presentation">
+                    </div>
+                </div>
+            </div>
+
+    <div class="programs mainpage__block">
+                <div class="container programs__container">
+                    <div class="h1-text mainpage__block-count">
+                        <p>Наши программы</p>
+                    </div>
+                    <ul class="nav nav-pills justify-content-center programs__schools" id="pills-tab" role="tablist">
+                        <li class="nav-item programs__school">
+                            <a
+                                class="nav-link subtitle1-text programs__school-name active"
+                                data-toggle="pill"
+                                data-slide-index="0"
+                                data-slide-index-end="12"
+                                href="#"
+                                id="all"
+                            >
+                                Все
+                            </a>
+                        </li>
+                        {% for d in directions %}
+                        <li class="nav-item programs__school">
+                            <a
+                                class="nav-link subtitle1-text programs__school-name"
+                                data-toggle="pill"
+                                data-slide-index="0"
+                                data-slide-index-end="12"
+                                href="#"
+                                id="{{ d.id }}"
+                            >
+                                {{ d.name }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="tab-content w-100" id="pills-tabContent">
+                            <div class="swiper-slide">
+                                <div class="mainpage__slide" style="display: flex; flex-direction: row; width: 100%; flex-wrap: wrap;  align-items: center;  justify-content: center;">
+                                    {% for c in courses %}
+                                        <div class="card-course" data-content="{{ c.direction_id }}">
+                                            <div class="mainpage__slide-card programs__slide-card" style="width: 100%">
+                                                <div class="programs__slide-card-cover">
+                                                    <img loading="lazy" src="media/{{ c.logo_path }}" alt="{{ c.name }}" />
+                                                </div>
+                                                <a href="{% url 'get_course' c.id %}" class="body1-text programs__slide-card-details">
+                                                    <div class="mb-2">
+                                                        <strong>Длительность:</strong>
+                                                        {{ c.duration }}
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <strong>Академических часов:</strong>
+                                                        {{ c.hours }}
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <strong>Стоимость:</strong>
+                                                        {% if c.price %}
+                                                            {{ c.price }} ₽
+                                                        {% else %}
+                                                            -
+                                                        {% endif %}
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="subtitle1-text text-center">{{ c.name }}</div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                </div>
+            </div>
+
+    <div class="advantages mainpage__block">
+                <div class="container advantages__container">
+                    <div class="h2-text mainpage__block-title">Почему нужно выбрать именно нас?</div>
+                    <div style="display:flex; flex-direction: row; width:100%;">
+                        <div style="flex-direction: column; width: 46%; margin-left: 2%;">
+                            {% for ad in advantages %}
+                                <div class="advantage" data-content="{{ ad.text }}" data-feature="{{ ad.img }}">
+                                    {{ ad.name }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="advantage-info">
+                            <p class="advantage_text" style="padding-left: 10%;padding-right: 10%;"></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+    <div class="reviews mainpage__block">
+        <div class="container reviews__container">
+            <div class="h2-text mainpage__block-title">Отзывы</div>
+        </div>
+
+        <div id="reviews-swiper" class="swiper-container reviews__swiper container-sw swiper-container-initialized swiper-container-horizontal">
+                    <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+                        {% for c in comments %}
+                            {% if c.show %}
+                            <div class="swiper-slide reviews__slide swiper-slide-active" style="width: 360px; margin-right: 30px;">
+                                <div class="reviews__slide-card" data-type="review">
+                                    <div class="reviews__slide-card-username">
+                                        {{ c.author }}
+                                    </div>
+                                    <div class="reviews__slide-card-country">
+                                        {{ c.date }}
+                                    </div>
+                                    <div class="reviews__slide-card-title">
+                                        {{ c.course }}
+                                    </div>
+                                    <div class="reviews__slide-card-description">
+                                        {{ c.text }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+    </div>
+
+    <div class="container first-screen">
+                <div class="first-screen__descriptor">
+                    <div class="h1-text first-screen__title">
+                        <div class="first-screen__title-1">
+                            Диплом государственного образца
+                        </div>
+                    </div>
+                    <div class="first-screen__subtitle">
+                        <div>
+                            <p>Фраза о том, что этот диплом котируется во многих местах, его сложно получить, но он очень ценится</p>
+                            <p>Текст, Текст, Текст, Текст, Текст</p>
+                            <br>
+                            <p>Добавить поля о том, в каких местах аккредитована программа и будущий полученный диплом о ее прохождении</p>
+                            <p>Текст, Текст, Текст, Текст, Текст</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="first-screen__presentation">
+                    <div class="first-screen__presentation-preview" style="border-radius: 0; width: 450px; height:650px; padding-top:60%;">
+                        <img loading="lazy" src="static/img/diploma_main.jpg" alt="diploma" width="450px">
+                    </div>
+                </div>
+            </div>
+
+    <div class="container feedback">
+        <div class="modal-body">
+            <form action="{% url 'apply' %}" method="post" style="width: 100%">
+                {% csrf_token %}
+                {{ form }}
+                <button id="send-form" class="btn btn-outline-line rounded" style="margin-top: 10px; color: white; border-color: white" type="submit">Подать заявку</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="mainpage__bottom-img">
+        <img loading="lazy" src='static/img/bottom-image.png' alt="bottom-image" />
+    </div>
+</div>
+
+{% endblock %}
